@@ -1,19 +1,19 @@
-## CDrage
+## CDrag
 
 基于canvas 2d的图片文字拖拽、变形画板
-
+![image.png](https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/eb7c74b053874462848d8e2aa8f7236f~tplv-k3u1fbpfcp-zoom-in-crop-mark:1512:0:0:0.awebp?)
 
 ## 安装
 
-    npm install --save CDrag
+    npm install --save cdrag
     or
-    pnpm install --save CDrag
+    pnpm install --save cdrag
 
 ## 使用示例
 
 
 ```js
-import CDrag from 'CDrag'
+import CDrag from 'cdrag'
 
 const canvas = document.getElementById('CDrag-canvas')
 // CDrag 的配置参数
@@ -40,9 +40,9 @@ const config = {
       size: 20,
       color: '#E6A23C'
     }
-  ]
+  ],
   // 列表更新回调
-  update: (newList) => { console.log('更新后列表', newList)}
+  update: (newList) => { console.log('更新后列表', newList)},
   // drawList数据项各字段name，可根据业务修改
   options: {
       left: 'left', // x轴距离
@@ -61,13 +61,13 @@ const config = {
     // 只展示不可操作(删除、变形、旋转)
     readOnly: false,
     // 画布是否可移动(仅在readOnly为true时有效)
-    move = true,
+    move: true,
     // 画布是否可缩放(仅在readOnly为true时有效)
-    scale = true,
+    scale: true,
   }
 
 // 创建 PopupControl
-const cDrag = new CDrag(config)
+const cDrag = new cdrag(config)
 ```
 
 ### 添加新的渲染图形
@@ -88,9 +88,6 @@ cDrag.addDraw(newDrawItem)
 ### 设置新渲染图形列表
 
 ```js
-import CDrag from 'CDrag'
-
-const cDrag = new CDrag(config)
 const newDrawList = [{
       left: 100,
       top: 100,
@@ -134,9 +131,10 @@ cDrag.setDrawList(newDrawList)
 | addDraw | 添加新的渲染渲染数据项,触发update回调并绘制 | Object | drawItem |
 | setDrawList | 设置drawList列表，触发update回调并绘制 | Array  |newDrawList |
 | destroy | 销毁方法 | -  |- |
-## Related
+| clearCanvas | 清空画布 | -  |- |
+## 其他
 
-*   [`CDrag-example`](https://github.com/1103442828/CDrag-example) – 示例项目
+*   [`cdrag-example`](https://github.com/1103442828/CDrag-example) – 示例项目
 
 ## License
 

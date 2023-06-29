@@ -1,8 +1,8 @@
 {
-  "name": "CDrag",
-  "version": "1.0.0",
+  "name": "cdrag",
+  "version": "0.0.2",
   "type": "module",
-  "description": "基于canvas的图片文字拖拽、变形画板",
+  "description": "基于canvas 2d的图片文字拖拽、变形画板",
   "main": "index.js",
   "author": "引力波 <https://github.com/1103442828>(https://github.com/1103442828)",
   "license": "MIT",

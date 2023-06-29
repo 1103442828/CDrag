@@ -455,12 +455,12 @@ export default class CDrag {
       }
     }
     const handleMouseup = () => {
-      document.removeEventListener('mousemove', handleMousemove)
-      document.removeEventListener('mouseup', handleMouseup)
+      this.#canvas.removeEventListener('mousemove', handleMousemove)
+      this.#canvas.removeEventListener('mouseup', handleMouseup)
       this.updateDrawList()
     }
-    document.addEventListener('mousemove', handleMousemove)
-    document.addEventListener('mouseup', handleMouseup)
+    this.#canvas.addEventListener('mousemove', handleMousemove)
+    this.#canvas.addEventListener('mouseup', handleMouseup)
   }
 
   /**
@@ -498,10 +498,10 @@ export default class CDrag {
     this.clearCanvas()
     this.#canvas.mousewheel = null
     this.#canvas.onmousedown = null
+    this.#update = null
     this.#canvas = null
     this.#drawList = null
     this.#selectKey = null
-    this.#update = null
     this.#ctx = null
   }
 }
