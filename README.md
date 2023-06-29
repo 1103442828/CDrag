@@ -1,118 +1,142 @@
-# arcgis-popup-control
+## CDrage
 
-基于ArcGis For JavaScript 4.x的自定义弹窗控制
+基于canvas 2d的图片文字拖拽、变形画板
 
-## Features
-*  纯JS实现，兼容性强
 
-## Install
+## 安装
 
-    npm install --save arcgis-popup-control
+    npm install --save CDrag
     or
-    pnpm install --save arcgis-popup-control
+    pnpm install --save CDrag
 
-## Usage
+## 使用示例
 
-使用示例:
 
 ```js
-import PopupControl from 'arcgis-popup-control'
+import CDrag from 'CDrag'
 
-// PopupControl 的部分配置参数
-const options = {
-    // 强制性必填
-  view, 
-    // open的回调返回 { left: 100, top: 100, attributes: {} } 结构的对象
-  open: (obj) => { 
-    // 更新定位并打开弹窗等逻辑
-  },
-  close: () => {
-    // popupVisible = false等一些操作逻辑
+const canvas = document.getElementById('CDrag-canvas')
+// CDrag 的配置参数
+const config = {
+   // Canvas HTMLElement 强制性必填
+  canvas, 
+   // 要渲染的图形列表
+  drawList: [
+    {
+      left: 200,
+      top: 200,
+      rotate: 45,
+      width: 200,
+      height: 160,
+      zIndex: 0,
+      img: 'https://images.pexels.com/photos/943905/pexels-photo-943905.jpeg?auto=compress&cs=tinysrgb&w=1600'
+    },
+    {
+      left: 60,
+      top: 60,
+      rotate: 0,
+      zIndex: 1,
+      text: '引力波',
+      size: 20,
+      color: '#E6A23C'
+    }
+  ]
+  // 列表更新回调
+  update: (newList) => { console.log('更新后列表', newList)}
+  // drawList数据项各字段name，可根据业务修改
+  options: {
+      left: 'left', // x轴距离
+      top: 'top', // y轴距离
+      rotate: 'rotate', // 旋转角度
+      width: 'width', // 宽度（仅图片有效）
+      height: 'height', // 高度（仅图片有效）
+      zIndex: 'zIndex', // 渲染层级
+      img: 'img', // 图片地址 （仅图片有效）
+      text: 'text', // 文本内容 （仅文本有效）
+      color: 'color', // 文本颜色 （仅文本有效）
+      size: 'size', // 文本大小（仅文本有效）
+    },
+    // 图形选中时边框与控件颜色
+    theme: '#396FFF',
+    // 只展示不可操作(删除、变形、旋转)
+    readOnly: false,
+    // 画布是否可移动(仅在readOnly为true时有效)
+    move = true,
+    // 画布是否可缩放(仅在readOnly为true时有效)
+    scale = true,
   }
-}
 
 // 创建 PopupControl
-const popupControl = new PopupControl(options)
+const cDrag = new CDrag(config)
 ```
 
-## API
+### 添加新的渲染图形
 
-### PopupControl(options)
+```js
+const newDrawItem = {
+      left: 100,
+      top: 100,
+      rotate: 0,
+      zIndex: 1,
+      text: '引力波1',
+      size: 20,
+      color: '#000'
+    }
+cDrag.addDraw(newDrawItem)
+```
 
-### Options
+### 设置新渲染图形列表
 
-#### view
+```js
+import CDrag from 'CDrag'
 
-Type: `View` Required
+const cDrag = new CDrag(config)
+const newDrawList = [{
+      left: 100,
+      top: 100,
+      rotate: 0,
+      zIndex: 1,
+      text: '引力波1',
+      size: 20,
+      color: '#000'
+    }]
+cDrag.setDrawList(newDrawList)
+```
 
-arcgis View 实例对象
+## config 参数
+| 参数      | 说明    | 类型      | 可选值       | 默认值   |
+|---------- |-------- |---------- |-------------  |-------- |
+| canvas | Canvas Dom对象 | HTMLElement | 必填 | - |
+| drawList | 要渲染的图形列表 | Array | 必填 | - |
+| update | drawList列表更新的回调,返回更新后的drawList， (newList) => {} | Function | - | - |
+| options | drawList数据项各字段名称，详情参加下面options | Object | - | - |
+| theme | 图形选中时边框与控件颜色 | 参考[strokeStyle](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/strokeStyle)与[fillStyle](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/fillStyle) | — | '#396FFF' |
+| readOnly | 只展示不可操作(删除、变形、旋转) | Boolean  | false | false |
+| move | 画布是否可移动(仅在readOnly为true时有效) | Boolean | false | true |
+| scale | 画布是否可缩放(仅在readOnly为true时有效) | Boolean | false | true |
 
-#### open
+## options 指定选项的值为选项对象的某个属性值
+| 参数      | 说明    | 类型      | 默认值   |
+|---------- |-------- |---------- |-------- |
+| left | x轴距离 | String | 'left' |
+| top | y轴距离 | String | 'top' |
+| width | 宽度（仅图片有效 最小值6） | String | 'width' |
+| height |高度（仅图片有效 最小值6） | String | 'height' |
+| rotate |旋转角度 | String | 'rotate' |
+| img | 图片地址 （仅图片有效） | String | 'img' |
+| text | 文本内容 （仅文本有效,默认值#000） | String | 'text' |
+| color | 文本颜色 （仅文本有效） | String | 'color' |
+| size | 文本大小（仅文本有效,最小值12） | String | 'size' |
 
-Type: `Function` Default: `undefined`
-
-打开的处理方法,传入 { left: 100, top: 100, attributes: {} } 结构的对象,left top是距屏幕左和上的距离，attributes为graphic的属性
-
-#### close
-
-Type: `Function` Default: `undefined`
-
-关闭的处理方法
-
-#### include
-
-Type: `HitTestItem[] | Collection<HitTestItem> | Layer | Graphic` Default: `undefined`
-
-要包含在hitTest中的图层和图形列表。如果未指定include，则将包括所有图层和图形
-[参照ArcGis MapView hitTest](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-MapView.html#hitTest)
-
-#### exclude
-
-Type: `HitTestItem[] | Collection<HitTestItem> | Layer | Graphic` Default: `undefined`
-
-要从hitTest中排除的图层和图形列表。如果未指定exclude，则不排除任何图层或图形。
-[参照ArcGis MapView hitTest](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-MapView.html#hitTest)
-
-#### emptyClose
-
-Type: `Boolean` Default: `true`
-
-点击空白处弹窗自动关闭
-
-#### dragCloseType
-
-Type: `Sting` Enum: `'close'` | `'hide'` | `'never'` Default: `'hide'`
-
-地图移动时弹窗动作
-
-*   `'close'`: 关闭弹窗
-*   `'hide'`: 暂时隐藏,停止移动后显示
-*   `'never'`: 不关闭
-
-#### positionType
-
-Type: `Sting` Enum: `'click'` | `'geometry'`  Default: `'geometry'`
-
-定位坐标来源
-
-*   `'click'`: 点击位置的坐标
-*   `'geometry'`: Graphic geometry的中心点
-
-#### goto
-
-Type: `Boolean`  Default: `false`
-
-是否开启view\.goto
-
-#### transition
-
-Type: `Number`  Default: `800`
-
-goTo持续时长（毫秒） default: 800
-
+### 方法
+| 方法名 | 说明 | 类型      | 参数 |
+| ---- | ---- | ---- | ---- | 
+| addDraw | 添加新的渲染渲染数据项,触发update回调并绘制 | Object | drawItem |
+| setDrawList | 设置drawList列表，触发update回调并绘制 | Array  |newDrawList |
+| destroy | 销毁方法 | -  |- |
 ## Related
 
-*   [`arcgis-popup-example`](https://github.com/1103442828/arcgis-popup) – 示例项目
+*   [`CDrag-example`](https://github.com/1103442828/CDrag-example) – 示例项目
 
 ## License
 

@@ -58,11 +58,23 @@ export default class CDrag {
 
   // 排序与图片加载
   sortAndPreload () {
-    const { img, zIndex } = this.#options
+    const { img, zIndex, width, size, height, text, color, left, top, rotate } = this.#options
     // 根据zIndex升序
     this.#drawList.sort((item1, item2) => item1[zIndex] - item2[zIndex])
     // 增加key与统计待加载图片数
     const preloadList = this.#drawList.filter(rect => {
+      // 赋默认值
+      rect[left] = rect[left] ?? 10
+      rect[top] = rect[top] ?? 10
+      rect[rotate] = rect[rotate] || 0
+      rect[zIndex] = rect[zIndex] || 0
+      if (rect[img]) {
+        rect[width] = rect[width] || 100
+        rect[height] = rect[height] || 100
+      } else if (rect[text]) {
+        rect[size] = rect[size] || 16
+        rect[color] = rect[color] || '#000'
+      }
       rect.tempKey || (rect.tempKey = getUniqueKey())
       if (rect[img] && !rect.imageEle) {
         this.#imgNum++
