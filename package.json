@@ -1,8 +1,8 @@
 {
-  "name": "arcgis-popup-control",
-  "version": "1.0.4",
+  "name": "CDrag",
+  "version": "1.0.0",
   "type": "module",
-  "description": "自定义arcgis popup与控制",
+  "description": "基于canvas的图片文字拖拽、变形画板",
   "main": "index.js",
   "author": "引力波 <https://github.com/1103442828>(https://github.com/1103442828)",
   "license": "MIT",
@@ -13,8 +13,8 @@
   "homepage": "https://github.com/1103442828/arcgis-popup-control",
   "bugs": "https://github.com/1103442828/arcgis-popup-control/issues",
   "keywords":  [
-    "arcgis",     
-    "popup",    
+    "canvas",     
+    "drag",    
     "javascript"
   ]
 }
