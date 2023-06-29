@@ -1,0 +1,20 @@
+{
+  "name": "arcgis-popup-control",
+  "version": "1.0.4",
+  "type": "module",
+  "description": "自定义arcgis popup与控制",
+  "main": "index.js",
+  "author": "引力波 <https://github.com/1103442828>(https://github.com/1103442828)",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/1103442828/arcgis-popup-control"
+  },
+  "homepage": "https://github.com/1103442828/arcgis-popup-control",
+  "bugs": "https://github.com/1103442828/arcgis-popup-control/issues",
+  "keywords":  [
+    "arcgis",     
+    "popup",    
+    "javascript"
+  ]
+}
