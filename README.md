@@ -62,8 +62,6 @@ const config = {
     readOnly: false,
     // 画布是否可移动(仅在readOnly为true时有效)
     move: true,
-    // 画布是否可缩放(仅在readOnly为true时有效)
-    scale: true,
   }
 
 const cDrag = new CDrag(config)
@@ -109,7 +107,6 @@ cDrag.setDrawList(newDrawList)
 | theme | 图形选中时边框与控件颜色 | 参考[strokeStyle](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/strokeStyle)与[fillStyle](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/fillStyle) | — | '#396FFF' |
 | readOnly | 只展示不可操作(删除、变形、旋转) | Boolean  | false | false |
 | move | 画布是否可移动(仅在readOnly为true时有效) | Boolean | false | true |
-| scale | 画布是否可缩放(仅在readOnly为true时有效) | Boolean | false | true |
 
 ## options 指定选项的值为选项对象的某个属性值
 | 参数      | 说明    | 类型      | 默认值   |

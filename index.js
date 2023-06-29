@@ -42,8 +42,8 @@ export default class CDrag {
     if (!canvas || !canvas.getContext) {
       throw (Error('canvas 未找到'))
     }
-    readOnly || (canvas.onmousedown = this.handleMousedown)
-    readOnly && scale && (canvas.onmousewheel = (e) => this.handleMousewheel(e))
+    canvas.onmousedown = this.handleMousedown
+    // readOnly && scale && (canvas.onmousewheel = (e) => this.handleMousewheel(e))
     this.#canvas = canvas
     this.#ctx = this.#canvas.getContext('2d')
     this.#options = { ...defaultOptions, ...options }
@@ -263,6 +263,9 @@ export default class CDrag {
    * @returns rect: Object, type: String | null
    */
    drawTransform = (rect, hitTestPoint) => {
+     if (this.#readOnly) {
+       return
+     }
      let controlType = null
      const { controlSize } = this
      const { width, height, rotate, text, size } = this.#options
@@ -401,6 +404,9 @@ export default class CDrag {
     const handleMousemove = ({ clientX, clientY }) => {
       switch (result?.type) {
         case 'move':
+          if (this.#readOnly) {
+            return
+          }
           result.rect[left] = clientX - toDragX
           result.rect[top] = clientY - toDragY
           this.selectTop()
