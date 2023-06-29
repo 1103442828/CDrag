@@ -66,8 +66,7 @@ const config = {
     scale: true,
   }
 
-// 创建 PopupControl
-const cDrag = new cdrag(config)
+const cDrag = new CDrag(config)
 ```
 
 ### 添加新的渲染图形
